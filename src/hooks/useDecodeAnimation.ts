@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 export type UseDecodeAnimationType = (value: string) => {
   text: string,
@@ -7,7 +7,7 @@ export type UseDecodeAnimationType = (value: string) => {
   start: Function,
   pause: Function,
   reset: Function,
-}
+};
 
 export type DecodeState = "Playing" | "Paused" | "Reset";
 
@@ -18,11 +18,22 @@ const useDecodeAnimation: UseDecodeAnimationType = (value) => {
   let intervalId: NodeJS.Timeout;
   
   const start = () => {
-    setDecodeState("Playing");
+    intervalId = setInterval(() => {
+      setIndex((prevousState) => {
+        if (prevousState >= value.length) {
+          pause();
+          setDecodeState("Paused");
+          return prevousState;
+        }
+        return ++prevousState;
+      });
+    }, 100);
   };
+
   const pause = () => {
-    setDecodeState("Paused");
+    clearInterval(intervalId!);
   };
+
   const reset = () => {
     clearInterval(intervalId!);
     setIndex(0);
@@ -31,32 +42,20 @@ const useDecodeAnimation: UseDecodeAnimationType = (value) => {
 
   useEffect(() => {
     if (decodeState === "Playing") {
-      setText((prevousState) => {
-        return prevousState += value[index - 1]
-      })
+      setText((prevousState) => prevousState += value[index - 1]);
     }
   }, [index]);
   
   useEffect(() => {
     switch (decodeState) {
       case "Playing":
-        intervalId = setInterval(() => {
-          setIndex((prevousState) => {
-            if (prevousState >= value.length) {
-              pause();
-              return prevousState;
-            }
-            return ++prevousState;
-          });
-        }, 100)
+        start();
         break;
       case "Paused":
-        clearInterval(intervalId!);
-        break;
-      case "Reset":
-        reset();
+        pause();
         break;
       default:
+        reset();
         break;
     }
     return () => {
@@ -68,9 +67,9 @@ const useDecodeAnimation: UseDecodeAnimationType = (value) => {
     text,
     currentIndex: index,
     state: decodeState,
-    start,
-    pause,
-    reset,
+    start: () => setDecodeState("Playing"),
+    pause: () => setDecodeState("Paused"),
+    reset: () => setDecodeState("Reset"),
   }
 }
 

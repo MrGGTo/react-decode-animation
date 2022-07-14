@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { AllowedCharaters, CharacterList } from "../CharacterList";
 import useDecodeAnimation from "../hooks/useDecodeAnimation";
 
@@ -9,10 +9,17 @@ export interface DecodeAnimationProps {
 	style?: React.CSSProperties;
 }
 
-export default function DecodeAnimation(props: DecodeAnimationProps) {
+export type DecodeAnimationRef = {
+  start: Function,
+  pause: Function,
+  reset: Function,
+}
+
+const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>((props, ref) => {
 	const { text, currentIndex, state, start, pause, reset } = useDecodeAnimation(props.text);
 	const placeholders = Array.apply({}, Array<DecodeAnimationCharacterProps>(props.text.length));
 	const characterList = new CharacterList(props.allowedCharacters);
+  useImperativeHandle(ref, () => ({ start, pause, reset }), []); //TODO: pass State 
 
 	return (
 		<span className={props.className} style={props.style}>
@@ -28,14 +35,11 @@ export default function DecodeAnimation(props: DecodeAnimationProps) {
 					)
 				);
 			})}
-			<hr />
-			<button onClick={() => start()}>Play</button>&nbsp;
-			<button onClick={() => pause()}>Pause</button>&nbsp;
-			<button onClick={() => reset()}>Reset</button>&nbsp;
-			<code>{state.toUpperCase()}</code>
 		</span>
 	);
-}
+})
+
+export default DecodeAnimation;
 
 export interface DecodeAnimationCharacterOptions {
 	interval: number;
