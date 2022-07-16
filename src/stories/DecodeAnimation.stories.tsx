@@ -20,6 +20,7 @@ Short.args = {
 
 function DecodeAnimation(props: DecodeAnimationRaw.DecodeAnimationProps) {
   const ref = useRef<DecodeAnimationRaw.DecodeAnimationRef>(null);
+  
   return (
     <div>
       <DecodeAnimationRaw.default {...props} ref={ref} />
@@ -27,7 +28,6 @@ function DecodeAnimation(props: DecodeAnimationRaw.DecodeAnimationProps) {
 			<button onClick={() => ref.current?.start()}>Play</button>&nbsp;
 			<button onClick={() => ref.current?.pause()}>Pause</button>&nbsp;
 			<button onClick={() => ref.current?.reset()}>Reset</button>&nbsp;
-			{/* <code>{ref.current?.getState()}</code> */}
     </div>
   )
 }
