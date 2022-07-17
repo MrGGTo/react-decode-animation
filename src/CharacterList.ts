@@ -1,22 +1,20 @@
 import { allowedCharacters_alphanumeric, allowedCharacters_letters, allowedCharacters_numbers, allowedCharacters_symbols } from "./constants";
 
-export type AllowedCharaters = {
-  type: "numbers" | "letters" | "alphanumeric" | "symbols" | "custom",
-  custom?: string,
-};
+export const allowedCharaters = ["numbers", "letters", "alphanumeric", "symbols"] as const;
+export type AllowedCharaters = typeof allowedCharaters[number];
 
 export class CharacterList {
   characters: string[];
 
-  constructor(allowedCharacters?: AllowedCharaters) {
-    if (!allowedCharacters) {
-      allowedCharacters = { type: "alphanumeric" };
+  constructor(allowedCharacters?: AllowedCharaters, custom?: string) {
+    if (custom) {
+      this.characters = CharacterList.toCharacters(custom, false);
+      return;
     }
-    switch (allowedCharacters.type) {
-      case "custom":
-        if (!allowedCharacters.custom) throw new Error("AllowedCharaters is 'custom' type , but 'AllowedCharaters.custom' is ");
-        this.characters = CharacterList.toCharacters(allowedCharacters.custom, false);
-        break;
+    if (!allowedCharacters) {
+      allowedCharacters = "alphanumeric";
+    }
+    switch (allowedCharacters) {
       case "letters":
         this.characters = CharacterList.toCharacters(allowedCharacters_letters, false);
         break;

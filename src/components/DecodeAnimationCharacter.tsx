@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import { CharacterList } from "../CharacterList";
 
 export interface DecodeAnimationCharacterOptions {
+  /**
+   * The duration of character change (in Milliseconds)
+   */
 	interval: number;
-	deviation?: number;
+  /**
+   * The duration that can deviate from the interval (in Milliseconds)
+   */
+	intervalDeviation?: number;
 }
 
 export interface DecodeAnimationCharacterProps {
@@ -15,11 +21,11 @@ export interface DecodeAnimationCharacterProps {
 export function DecodeAnimationCharacter({
 	isPlaying,
 	loopString,
-	options = { deviation: 10, interval: 100 },
+	options = { intervalDeviation: 10, interval: 100 },
 }: DecodeAnimationCharacterProps) {
 	const code = CharacterList.generateCode(loopString);
-	const minInterval = options.interval - (options.deviation || 0);
-	const maxInterval = options.interval + (options.deviation || 0);
+	const minInterval = options.interval - (options.intervalDeviation || 50);
+	const maxInterval = options.interval + (options.intervalDeviation || 50);
 	const interval = Math.random() * (maxInterval - minInterval) + minInterval;
 	let intervalId: NodeJS.Timeout;
 	const [character, setCharacter] = useState<string>(`${code.next().value}`);

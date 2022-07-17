@@ -1,11 +1,27 @@
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import { AllowedCharaters, CharacterList } from "../CharacterList";
 import useDecodeAnimation from "../hooks/useDecodeAnimation";
-import { DecodeAnimationCharacter, DecodeAnimationCharacterProps } from "./DecodeAnimationCharacter";
+import { DecodeAnimationCharacter, DecodeAnimationCharacterOptions, DecodeAnimationCharacterProps } from "./DecodeAnimationCharacter";
 
 export interface DecodeAnimationProps {
+  /**
+   * If True, DecodeAnimation will play once it is rendered
+   */
+  autoplay: boolean;
+  /**
+   * The duration of each character reveal (in Milliseconds)
+   */
+  interval?: number;
+  /**
+   * Options for each characters
+   */
+  characterOptions?: DecodeAnimationCharacterOptions;
+  /**
+   * The text that will be animated
+   */
 	text: string;
 	allowedCharacters?: AllowedCharaters;
+  customCharacters?: string;
 	className?: string;
 	style?: React.CSSProperties;
 }
@@ -16,11 +32,21 @@ export type DecodeAnimationRef = {
   reset: Function,
 }
 
-const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>((props, ref) => {
-	const { text, currentIndex, state, start, pause, reset } = useDecodeAnimation(props.text);
+const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>(({
+  autoplay = false,
+  interval = 100,
+  ...props
+}, ref) => {
+	const { text, currentIndex, state, start, pause, reset } = useDecodeAnimation({
+    value: props.text,
+    interval,
+  });
 	const placeholders = Array.apply({}, Array<DecodeAnimationCharacterProps>(props.text.length));
-	const characterList = new CharacterList(props.allowedCharacters);
-  useImperativeHandle(ref, () => ({ start, pause, reset }), []); //TODO: pass State 
+	const characterList = new CharacterList(props.allowedCharacters, props.customCharacters);
+  useImperativeHandle(ref, () => ({ start, pause, reset }), []);
+  useEffect(() => {
+    if (autoplay) start();
+  }, []);
 
 	return (
 		<span className={props.className} style={props.style}>
@@ -32,6 +58,7 @@ const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>((pr
 							key={index}
 							isPlaying={state === "Playing"}
 							loopString={characterList.shuffle()}
+              options={props.characterOptions}
 						/>
 					)
 				);

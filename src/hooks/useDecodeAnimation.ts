@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-export type UseDecodeAnimationType = (value: string) => {
+export type UseDecodeAnimationProps = {
+  value: string;
+  interval: number;
+}
+
+export type UseDecodeAnimationType = (props: UseDecodeAnimationProps) => {
   text: string,
   currentIndex: number,
   state: DecodeState,
@@ -11,7 +16,10 @@ export type UseDecodeAnimationType = (value: string) => {
 
 export type DecodeState = "Playing" | "Paused" | "Reset";
 
-const useDecodeAnimation: UseDecodeAnimationType = (value) => {
+const useDecodeAnimation: UseDecodeAnimationType = ({
+  value,
+  interval,
+}) => {
   const [decodeState, setDecodeState] = useState<DecodeState>("Reset");
   const [text, setText] = useState<string>("");
   const [index, setIndex] = useState<number>(0);
@@ -27,7 +35,7 @@ const useDecodeAnimation: UseDecodeAnimationType = (value) => {
         }
         return ++prevousState;
       });
-    }, 100);
+    }, interval);
   };
 
   const pause = () => {

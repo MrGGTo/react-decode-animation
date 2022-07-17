@@ -1,33 +1,35 @@
-import React, { useRef } from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import * as DecodeAnimationRaw from '../components/DecodeAnimation';
+import React from "react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import DecodeAnimation from "../components/DecodeAnimation";
 
 export default {
-  title: 'Decode Animation',
-  component: DecodeAnimation,
+	title: "Decode Animation",
+	component: DecodeAnimation,
+	argTypes: {
+		autoplay: {
+			defaultValue: false,
+		},
+    interval: {
+      defaultValue: 100,
+    },
+    allowedCharacters: {
+      defaultValue: "alphanumeric",
+    }
+	},
 } as ComponentMeta<typeof DecodeAnimation>;
 
+const Template: ComponentStory<typeof DecodeAnimation> = (args) => (
+	<DecodeAnimation
+		{...args}
+		style={{
+			fontFamily: "sans-serif",
+			color: "#4b4b4b",
+		}}
+	/>
+);
 
-const Template: ComponentStory<typeof DecodeAnimation> = (args) => <DecodeAnimation {...args} />;
-
-export const Short = Template.bind({});
-Short.args = {
-  text: "This is an Decode Animation Short.",
-  style: {
-    fontFamily: "sans-serif"
-  }
-}
-
-function DecodeAnimation(props: DecodeAnimationRaw.DecodeAnimationProps) {
-  const ref = useRef<DecodeAnimationRaw.DecodeAnimationRef>(null);
-  
-  return (
-    <div>
-      <DecodeAnimationRaw.default {...props} ref={ref} />
-			<hr />
-			<button onClick={() => ref.current?.start()}>Play</button>&nbsp;
-			<button onClick={() => ref.current?.pause()}>Pause</button>&nbsp;
-			<button onClick={() => ref.current?.reset()}>Reset</button>&nbsp;
-    </div>
-  )
-}
+export const Sample = Template.bind({});
+Sample.args = {
+	text: "This is a decode Animation.",
+	allowedCharacters: "alphanumeric"
+};
