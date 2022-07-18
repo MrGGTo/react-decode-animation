@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle } from "react";
-import { AllowedCharaters, CharacterList } from "../CharacterList";
+import { AllowedCharatersList, CharacterList } from "../CharacterList";
 import useDecodeAnimation from "../hooks/useDecodeAnimation";
 import { DecodeAnimationCharacter, DecodeAnimationCharacterOptions, DecodeAnimationCharacterProps } from "./DecodeAnimationCharacter";
 
@@ -20,7 +20,13 @@ export interface DecodeAnimationProps {
    * The text that will be animated
    */
 	text: string;
-	allowedCharacters?: AllowedCharaters;
+  /**
+   * A list of character types for the encoded text to use, this will not work if customCharacters is in use
+   */
+	allowedCharacters?: AllowedCharatersList;
+  /**
+   * Custom characters for the encoded text to use, this will override allowedCharacters
+   */
   customCharacters?: string;
 	className?: string;
 	style?: React.CSSProperties;

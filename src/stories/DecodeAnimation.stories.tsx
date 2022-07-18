@@ -12,9 +12,6 @@ export default {
     interval: {
       defaultValue: 100,
     },
-    allowedCharacters: {
-      defaultValue: "alphanumeric",
-    }
 	},
 } as ComponentMeta<typeof DecodeAnimation>;
 
@@ -31,5 +28,5 @@ const Template: ComponentStory<typeof DecodeAnimation> = (args) => (
 export const Sample = Template.bind({});
 Sample.args = {
 	text: "This is a decode Animation.",
-	allowedCharacters: "alphanumeric"
+	allowedCharacters: ["uppercase", "lowercase", "numbers"]
 };
