@@ -36,7 +36,7 @@ const DecodeAnimationExample = ({}) => {
 					With refs, DecodeAnimation will handle the state
 					automatically. The state, however, cannot be accessed
 				</p>
-				<button onClick={() => ref.current?.play()}>PlayRe</button>
+				<button onClick={() => ref.current?.play()}>Play</button>
 				<button onClick={() => ref.current?.pause()}>Pause</button>
 				<button onClick={() => ref.current?.reset()}>Reset</button>
 			</section>
