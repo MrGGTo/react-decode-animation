@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 export type UseDecodeAnimationProps = {
   value: string;
   interval: number;
+  onFinish?: Function;
 }
 
 export type UseDecodeAnimationType = (props: UseDecodeAnimationProps) => {
@@ -19,6 +20,7 @@ export type DecodeState = "Playing" | "Paused" | "Reset";
 const useDecodeAnimation: UseDecodeAnimationType = ({
   value,
   interval,
+  onFinish,
 }) => {
   const [decodeState, setDecodeState] = useState<DecodeState>("Reset");
   const [text, setText] = useState<string>("");
@@ -52,6 +54,7 @@ const useDecodeAnimation: UseDecodeAnimationType = ({
     if (decodeState === "Playing") {
       setText((prevousState) => prevousState += value[index - 1]);
     }
+    if (index >= value.length && onFinish) onFinish();
   }, [index]);
   
   useEffect(() => {

@@ -8,6 +8,9 @@ export interface DecodeAnimationProps {
    * If True, DecodeAnimation will play once it is rendered
    */
   autoplay?: boolean;
+  /**
+   * Changing the state will start | pause | reset the animation
+   */
   state?: DecodeState;
   /**
    * The duration of each character reveal (in Milliseconds)
@@ -29,6 +32,10 @@ export interface DecodeAnimationProps {
    * Custom characters for the encoded text to use, this will override allowedCharacters
    */
   customCharacters?: string;
+  /**
+   * onFinish is triggered when the decode animation is finished
+   */
+  onFinish?: Function;
 	className?: string;
 	style?: React.CSSProperties;
 }
@@ -60,6 +67,7 @@ const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>(({
 	const { text, currentIndex, state,  start, pause, reset } = useDecodeAnimation({
     value: props.text,
     interval,
+    onFinish: props.onFinish,
   });
 	const placeholders = Array.apply({}, Array<DecodeAnimationCharacterProps>(props.text.length));
 	const characterList = new CharacterList(props.allowedCharacters, props.customCharacters);
@@ -81,7 +89,7 @@ const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>(({
         reset()
         break;
     }
-  }, [props.state])
+  }, [props.state]);
 
 	return (
 		<span className={props.className} style={props.style}>
