@@ -25,24 +25,34 @@ const DecodeAnimationExample = ({}) => {
         }}
 			/>
       <div>onFinished Called: { finished ? "Yes" : "No" }</div>
-			<section>
+			<section style={{
+        border: "1px solid grey",
+        borderRadius: 4,
+        padding: "0 16px 16px",
+        marginTop: 8,
+      }}>
 				<h3>Control with Ref</h3>
 				<p>
 					With refs, DecodeAnimation will handle the state
 					automatically. The state, however, cannot be accessed
 				</p>
-				<button onClick={() => ref.current?.start()}>Start</button>
+				<button onClick={() => ref.current?.play()}>PlayRe</button>
 				<button onClick={() => ref.current?.pause()}>Pause</button>
 				<button onClick={() => ref.current?.reset()}>Reset</button>
 			</section>
-			<section>
+			<section style={{
+        border: "1px solid grey",
+        borderRadius: 4,
+        padding: "0 16px 16px",
+        marginTop: 8,
+      }}>
 				<h3>Control with States</h3>
 				<p>
 					With setting an external state, it will trigger
 					DecodeAnimation to re-render. The external state will not be
 					updated when the state of DecodeAnimation changes
 				</p>
-				<button onClick={() => setDecodeState("Playing")}>Start</button>
+				<button onClick={() => setDecodeState("Playing")}>Play</button>
 				<button onClick={() => setDecodeState("Paused")}>Pause</button>
 				<button onClick={() => setDecodeState("Reset")}>Reset</button>
 			</section>

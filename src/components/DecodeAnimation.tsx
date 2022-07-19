@@ -46,9 +46,9 @@ export interface DecodeAnimationProps {
  */
 export type DecodeAnimationRef = {
   /**
-   * run start() to play the decode animation
+   * run play() to play the decode animation
    */
-  start: Function,
+  play: Function,
   /**
    * run pause() to stop the decode animation
    */
@@ -64,23 +64,23 @@ const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>(({
   interval = 100,
   ...props
 }, ref) => {
-	const { text, currentIndex, state,  start, pause, reset } = useDecodeAnimation({
+	const { text, currentIndex, state,  play, pause, reset } = useDecodeAnimation({
     value: props.text,
     interval,
     onFinish: props.onFinish,
   });
 	const placeholders = Array.apply({}, Array<DecodeAnimationCharacterProps>(props.text.length));
 	const characterList = new CharacterList(props.allowedCharacters, props.customCharacters);
-  useImperativeHandle(ref, () => ({ start, pause, reset }), []);
+  useImperativeHandle(ref, () => ({ play, pause, reset }), []);
 
   useEffect(() => {
-    if (autoplay) start();
+    if (autoplay) play();
   }, []);
 
   useEffect(() => {
     switch (props.state) {
       case "Playing":
-        start()
+        play()
         break;
       case "Paused":
         pause()

@@ -10,7 +10,7 @@ export type UseDecodeAnimationType = (props: UseDecodeAnimationProps) => {
   text: string,
   currentIndex: number,
   state: DecodeState,
-  start: Function,
+  play: Function,
   pause: Function,
   reset: Function,
 };
@@ -27,7 +27,7 @@ const useDecodeAnimation: UseDecodeAnimationType = ({
   const [index, setIndex] = useState<number>(0);
   let intervalId: NodeJS.Timeout;
   
-  const start = () => {
+  const play = () => {
     intervalId = setInterval(() => {
       setIndex((prevousState) => {
         if (prevousState >= value.length) {
@@ -60,7 +60,7 @@ const useDecodeAnimation: UseDecodeAnimationType = ({
   useEffect(() => {
     switch (decodeState) {
       case "Playing":
-        start();
+        play();
         break;
       case "Paused":
         pause();
@@ -78,7 +78,7 @@ const useDecodeAnimation: UseDecodeAnimationType = ({
     text,
     currentIndex: index,
     state: decodeState,
-    start: () => setDecodeState("Playing"),
+    play: () => setDecodeState("Playing"),
     pause: () => setDecodeState("Paused"),
     reset: () => setDecodeState("Reset"),
   }
