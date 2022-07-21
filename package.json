@@ -1,6 +1,6 @@
 {
   "name": "react-decode-animation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Decode effect typing animation for React",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
