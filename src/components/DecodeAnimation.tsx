@@ -3,6 +3,9 @@ import { AllowedCharatersList, CharacterList } from "../CharacterList";
 import useDecodeAnimation, { DecodeState } from "../hooks/useDecodeAnimation";
 import { DecodeAnimationCharacter, DecodeAnimationCharacterOptions, DecodeAnimationCharacterProps } from "./DecodeAnimationCharacter";
 
+/**
+ * Components props for DecodeAnimation
+ */
 export interface DecodeAnimationProps {
   /**
    * If True, DecodeAnimation will play once it is rendered
@@ -33,7 +36,7 @@ export interface DecodeAnimationProps {
    */
   customCharacters?: string;
   /**
-   * onFinish is triggered when the decode animation is finished
+   * onFinish is triggered when the decode animation is finissdhed
    */
   onFinish?: Function;
 	className?: string;
@@ -59,6 +62,9 @@ export type DecodeAnimationRef = {
   reset: Function,
 }
 
+/**
+ * Decode effect typing animation for React
+ */
 const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>(({
   autoplay = false,
   interval = 100,

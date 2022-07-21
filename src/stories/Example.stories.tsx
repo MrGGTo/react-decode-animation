@@ -1,9 +1,6 @@
 import React, { useRef, useState } from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import DecodeAnimation, {
-	DecodeAnimationRef,
-} from "../components/DecodeAnimation";
-import { DecodeState } from "../hooks/useDecodeAnimation";
+import DecodeAnimation, { DecodeState, DecodeAnimationRef } from "..";
 
 const DecodeAnimationExample = ({}) => {
 	const [decodeState, setDecodeState] = useState<DecodeState>("Paused");
@@ -36,7 +33,7 @@ const DecodeAnimationExample = ({}) => {
 					With refs, DecodeAnimation will handle the state
 					automatically. The state, however, cannot be accessed
 				</p>
-				<button onClick={() => ref.current?.play()}>Play</button>
+				<button onClick={() => {ref.current?.play()}}>Play</button>
 				<button onClick={() => ref.current?.pause()}>Pause</button>
 				<button onClick={() => ref.current?.reset()}>Reset</button>
 			</section>
