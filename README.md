@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install decode-animation
+npm install react-decode-animation
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ import React, { useRef } from 'react'
 import DecodeAnimation from 'react-decode-animation'
 
 function App() {
-	const ref = useRef(null);
+  const ref = useRef(null);
   return (
     <div>
       <DecodeAnimation
