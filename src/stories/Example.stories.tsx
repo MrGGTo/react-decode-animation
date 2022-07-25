@@ -9,16 +9,17 @@ const DecodeAnimationExample = ({}) => {
 	return (
 		<div style={{ fontFamily: "sans-serif" }}>
 			<DecodeAnimation
-				text={"This is an animation Example"}
+				text={"Lorem ipsum dolor sit amet."}
 				ref={ref}
 				state={decodeState}
+				characterOptions={{ intervalDeviation: 50, interval: 150 }}
 				onFinish={() => setFinished(true)}
         style={{
-          display: "block",
-          backgroundColor: "lightgray",
+					display: "inline-block",
+          backgroundColor: "#ececec",
           borderRadius: 4,
           padding: 16,
-          marginBottom: 8,
+          marginBottom: 16,
         }}
 			/>
       <div>onFinished Called: { finished ? "Yes" : "No" }</div>

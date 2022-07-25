@@ -36,7 +36,7 @@ export interface DecodeAnimationProps {
    */
   customCharacters?: string;
   /**
-   * onFinish is triggered when the decode animation is finissdhed
+   * onFinish is triggered when the decode animation is finished
    */
   onFinish?: Function;
 	className?: string;
