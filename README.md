@@ -46,7 +46,7 @@ function App() {
 | `onFinish` | onFinish is triggered when the decode animation is finished | `Function` | - |
 | `interval` | The duration of each character reveal (in Milliseconds) [see interval](#interval) | `number` | 100 |
 | `characterOptions` | Options for each characters [see characteroptions](#characteroptions) | `DecodeAnimationCharacterOptions` | - |
-| `state` | Changing the state will `start,  pause or reset` the animation. This prop is not recommended, use `useRef()` instead. [see Animate Programatically](#animate-programatically) | `'start' | 'pause' | 'reset'` | - |
+| `state` | Changing the state will `start,  pause or reset` the animation. This prop is not recommended, use `useRef()` instead. [see Animate Programatically](#animate-programatically) | `'start'`  `'pause'`  `'reset'` | - |
 | `ref` | A React ref that contains functions for playing, pausing and reseting the animation, ***recommended***. [see Animate Programatically](#animate-programatically) | `React.Ref<DecodeAnimationRef>` | - |
 
 ---
