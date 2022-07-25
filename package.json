@@ -1,12 +1,16 @@
 {
   "name": "react-decode-animation",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Decode effect typing animation for React",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MrGGTo/react-decode-animation.git"
+  },
   "keywords": ["react", "animated", "animation", "typing", "typing effect", "decode"],
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
