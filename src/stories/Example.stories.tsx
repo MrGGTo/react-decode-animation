@@ -12,12 +12,14 @@ const DecodeAnimationExample = ({}) => {
 				text={"Lorem ipsum dolor sit amet."}
 				ref={ref}
 				state={decodeState}
-				characterOptions={{ intervalDeviation: 50, interval: 150 }}
+				characterOptions={{ intervalDeviation: 20, interval: 70 }}
+				interval={100}
 				onFinish={() => setFinished(true)}
         style={{
 					display: "inline-block",
           backgroundColor: "#ececec",
-          borderRadius: 4,
+          // borderRadius: 4,
+					width: 300,
           padding: 16,
           marginBottom: 16,
         }}

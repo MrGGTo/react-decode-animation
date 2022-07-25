@@ -2,7 +2,7 @@
 
 > Decode effect typing animation for React.
 
-[![NPM](https://img.shields.io/npm/v/react-decode-animation.svg)](https://www.npmjs.com/package/react-decode-animation) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-decode-animation.svg)](https://www.npmjs.com/package/react-decode-animation) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![npm downloads](https://img.shields.io/npm/dm/react-decode-animation.svg)](https://npm-stat.com/charts.html?package=react-decode-animation) [![Known Vulnerabilities](https://snyk.io/test/npm/react-decode-animation/badge.svg)](https://snyk.io/test/npm/react-decode-animation) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-decode-animation)
 
 ![preview](preview.gif)
 
@@ -40,17 +40,19 @@ function App() {
 | Name | Description | Type | Default |
 | ----------- | ----------- | ----------- | ----------- |
 | `text`| The text that will be animated | `string` | - |
-| `allowedCharacters` | A list of character types for the encoded text to use, this will not work if customCharacters is in use. [see Choosing Characters](#choosing-characters)  | `AllowedCharatersList` | `['uppercase', 'lowercase', 'numbers']` |
+| `allowedCharacters` | A list of character types for the encoded text to use, this will not work if customCharacters is in use. [see Choosing Characters](#choosing-characters-allowedcharaterslist)  | `AllowedCharatersList` | `['uppercase', 'lowercase', 'numbers']` |
 | `customCharacters` | Custom characters for the encoded text to use, this will override allowedCharacters. [see Displaying Any Characters](#displaying-any-characters) | `string` | - |
 | `autoplay` | If True, DecodeAnimation will play once it is rendered | `boolean` | `false` |
 | `onFinish` | onFinish is triggered when the decode animation is finished | `Function` | - |
 | `interval` | The duration of each character reveal (in Milliseconds) [see interval](#interval) | `number` | 100 |
 | `characterOptions` | Options for each characters [see characteroptions](#characteroptions) | `DecodeAnimationCharacterOptions` | - |
-| `state` | Changing the state will `start | pause | reset` the animation. This prop is not recommended, use `useRef()` instead. [see Animate Programatically](#animate-programatically) | `'start' | 'pause' | 'reset'` | - |
+| `state` | Changing the state will `start,  pause or reset` the animation. This prop is not recommended, use `useRef()` instead. [see Animate Programatically](#animate-programatically) | `'start' | 'pause' | 'reset'` | - |
 | `ref` | A React ref that contains functions for playing, pausing and reseting the animation, ***recommended***. [see Animate Programatically](#animate-programatically) | `React.Ref<DecodeAnimationRef>` | - |
 
-## How To Use It
+---
 
+## How To Use It
+> Before get started, please be noted that `react-decode-animation` is designed for *short texts*, and it's not ideal for long paragraphs.
 ### Get Started
 To get started, install the library.
 ```bash
@@ -67,6 +69,8 @@ Next, call `DecodeAnimation` and pass a string to `text`, we can also pass in `a
   autoplay // This is optional, will play when rendered
 />
 ```
+
+---
 
 ### Animate Programatically
 Sometime, we don't want the animation to play automatically, we want it to play when it's called. We can animate it by using a `useRef()` hook. 
@@ -124,6 +128,8 @@ function App() {
 }
 ```
 
+---
+
 ### Choosing Characters (`AllowedCharatersList`)
 By default, `DecodeAnimation` provides some basic character sets to work with. If you want to have a custom set of characters go [see `customCharacters`](#displaying-any-characters).
 | Sets | Description | Used by Default |
@@ -148,6 +154,7 @@ You can choose what goes to your `DecodeAnimation` by specifying it on `allowedC
 />
 ```
 
+---
 
 ### Displaying Any Characters
 ```jsx
@@ -159,10 +166,12 @@ You can choose what goes to your `DecodeAnimation` by specifying it on `allowedC
 ```
 You can input a custom set of characters if the provided `allowedCharacters` is not what you need. In this example, we can use some greek alphabets to generate the code. We don't have to worry about duplicated characters `DecodeAnimation` will remove it automatically.
 
+---
+
 ### Animation Duration
-There are 2 intervals that we can set. 
+There are 2 intervals that we can set. Play around to get the desired results.
 #### `interval`
-`interval` is the duration of each character reveal (in Milliseconds). if `inverval={1000}`, `DecodeAnimation` will reveal a character every 1 second.
+The duration of each character reveal (in Milliseconds). if `inverval={1000}`, `DecodeAnimation` will reveal a character every 1 second.
 ```jsx
 <DecodeAnimation
   text={"This Text is encoded with greek alphabets."}
@@ -175,10 +184,13 @@ It is for the duration of each character looping speed. By default, `characterOp
 // Example
 <DecodeAnimation
   text={"This Text is encoded with greek alphabets."}
-  characterOptions={{ intervalDeviation: 50, interval: 150 }}
+  characterOptions={{ intervalDeviation: 20, interval: 70 }}
 />
-// the interval of each character is ranged from 100 - 200
+// the interval of each character is ranged from 50 - 90
+// the lower the interval, the smoother loop it gets
 ```
+
+---
 
 ## License
 
