@@ -4,7 +4,7 @@
 
 [![NPM](https://img.shields.io/npm/v/react-decode-animation.svg)](https://www.npmjs.com/package/react-decode-animation) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![npm downloads](https://img.shields.io/npm/dm/react-decode-animation.svg)](https://npm-stat.com/charts.html?package=react-decode-animation) [![Known Vulnerabilities](https://snyk.io/test/npm/react-decode-animation/badge.svg)](https://snyk.io/test/npm/react-decode-animation) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-decode-animation)
 
-![preview](preview.gif)
+![preview](https://github.com/MrGGTo/react-decode-animation/blob/main/preview.gif?raw=true)
 
 ## Install
 
