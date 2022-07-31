@@ -2,10 +2,12 @@ import React, {
 	forwardRef,
 	useEffect,
 	useImperativeHandle,
+	useRef,
 	useState,
 } from "react";
 import { AllowedCharatersList, CharacterList } from "../CharacterList";
 import useDecodeAnimation, { DecodeState } from "../hooks/useDecodeAnimation";
+import useOnScreen from "../hooks/useOnScreen";
 import {
 	DecodeAnimationCharacter,
 	DecodeAnimationCharacterOptions,
@@ -17,7 +19,7 @@ import {
  */
 export interface DecodeAnimationProps {
 	/**
-	 * If True, DecodeAnimation will play once it is rendered
+	 * If True, DecodeAnimation will play once it enters the viewport
 	 */
 	autoplay?: boolean;
 	/**
@@ -77,6 +79,9 @@ export type DecodeAnimationRef = {
 const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>(
 	({ autoplay = false, interval = 100, ...props }, ref) => {
 		const [isRendered, setRendered] = useState<boolean>(false);
+		const [isAutoplayed, setAutoplayed] = useState<boolean>(false);
+		const spanRef = useRef(null);
+		const isOnScreen = useOnScreen(spanRef);
 		const { text, currentIndex, state, play, pause, reset } =
 			useDecodeAnimation({
 				value: props.text,
@@ -95,8 +100,15 @@ const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>(
 
 		useEffect(() => {
 			setRendered(true);
-			if (autoplay) play();
 		}, []);
+
+		useEffect(() => {
+			if (autoplay && !isAutoplayed) {
+				console.log("play");
+				play();
+			}
+			setAutoplayed(true);
+		}, [isOnScreen]);
 
 		useEffect(() => {
 			switch (props.state) {
@@ -113,7 +125,7 @@ const DecodeAnimation = forwardRef<DecodeAnimationRef, DecodeAnimationProps>(
 		}, [props.state]);
 
 		return (
-			<span className={props.className} style={props.style}>
+			<span ref={spanRef} className={props.className} style={props.style}>
 				{isRendered ? (
 					<>
 						{text}

@@ -7,45 +7,56 @@ const DecodeAnimationExample = ({}) => {
 	const [finished, setFinished] = useState<boolean>(false);
 	const ref = useRef<DecodeAnimationRef>(null);
 	return (
-		<div style={{ fontFamily: "sans-serif" }}>
+		<div style={{ fontFamily: "sans-serif", paddingTop: 1000 }}>
 			<DecodeAnimation
+				autoplay
 				text={"Lorem ipsum dolor sit amet."}
 				ref={ref}
 				state={decodeState}
 				characterOptions={{ intervalDeviation: 20, interval: 70 }}
 				interval={100}
 				onFinish={() => setFinished(true)}
-        style={{
+				style={{
 					display: "inline-block",
-          backgroundColor: "#ececec",
-          // borderRadius: 4,
+					backgroundColor: "#ececec",
+					// borderRadius: 4,
 					width: 300,
-          padding: 16,
-          marginBottom: 16,
-        }}
+					padding: 16,
+					marginBottom: 16,
+				}}
 			/>
-      <div>onFinished Called: { finished ? "Yes" : "No" }</div>
-			<section style={{
-        border: "1px solid grey",
-        borderRadius: 4,
-        padding: "0 16px 16px",
-        marginTop: 8,
-      }}>
+			<div>onFinished Called: {finished ? "Yes" : "No"}</div>
+			<section
+				style={{
+					border: "1px solid grey",
+					borderRadius: 4,
+					padding: "0 16px 16px",
+					marginTop: 8,
+				}}
+			>
 				<h3>Control with Ref</h3>
 				<p>
 					With refs, DecodeAnimation will handle the state
 					automatically. The state, however, cannot be accessed
 				</p>
-				<button onClick={() => {ref.current?.play()}}>Play</button>
+				<button
+					onClick={() => {
+						ref.current?.play();
+					}}
+				>
+					Play
+				</button>
 				<button onClick={() => ref.current?.pause()}>Pause</button>
 				<button onClick={() => ref.current?.reset()}>Reset</button>
 			</section>
-			<section style={{
-        border: "1px solid grey",
-        borderRadius: 4,
-        padding: "0 16px 16px",
-        marginTop: 8,
-      }}>
+			<section
+				style={{
+					border: "1px solid grey",
+					borderRadius: 4,
+					padding: "0 16px 16px",
+					marginTop: 8,
+				}}
+			>
 				<h3>Control with States</h3>
 				<p>
 					With setting an external state, it will trigger
